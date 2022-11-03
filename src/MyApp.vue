@@ -11,33 +11,30 @@ const log = (val: any) => {
   baz.value = val;
 };
 
-interface Window {
-  __MyApp__log: any;
-}
-
-(window as unknown as Window).__MyApp__log = log;
 defineExpose({
   log,
 });
-console.log('>> 请使用 window.__MyApp__log 调用 MyApp 的 log 方法');
 
-const emits = defineEmits(['emit']);
+const emits = defineEmits(['change']);
 
 const onEmit = () => {
-  emits('emit', 'hello');
+  console.log('----')
+  emits('change', 'hello');
 };
 </script>
 
 <template>
-  <div>
+  <div class="wrap">
     <img src="./assets/vue.svg" class="logo" alt="Vite logo" />
     <div>props.foo: {{ props.foo }}</div>
     <div>baz: {{ baz }}</div>
-    <button @click="onEmit">emit</button>
+    <button @click="onEmit()">emit</button>
   </div>
 </template>
 <style scoped>
-* {
-  text-align: center;
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
